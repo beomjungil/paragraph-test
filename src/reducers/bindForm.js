@@ -1,4 +1,4 @@
-import {UPDATE_FORM_DATA} from "../constants";
+import {ActionTypes} from "../constants";
 
 const initialData = {
   fontSize: 16,
@@ -8,7 +8,7 @@ const initialData = {
 
 export const bindForm = (state = initialData, action) => {
   switch (action.type){
-    case UPDATE_FORM_DATA:{
+    case ActionTypes.UPDATE_FORM_DATA:{
       return action.data
     }
     default:{

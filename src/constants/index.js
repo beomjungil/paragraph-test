@@ -1,1 +1,3 @@
-export const UPDATE_FORM_DATA = 'UPDATE_FORM_DATA';
+export const ActionTypes = {
+  UPDATE_FORM_DATA: 'UPDATE_FORM_DATA'
+};

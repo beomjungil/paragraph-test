@@ -1,57 +1,54 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {updateFormData} from "../actions/bindForm";
+import {updateFormData} from '../actions/bindForm';
+import {bindActionCreators} from 'redux';
 
 class TypoForm extends Component {
 
-  render() {
-    let fontSize, lineHeight, paragraphWidth;
+  handleInputChange = (e) => {
+    this.props.updateFormData({
+      ...this.props.formData,
+      [e.target.name]: e.target.value
+    });
+    console.log({
+      ...this.props.formData,
+      [e.target.name]: e.target.value
+    });
+  };
 
+  render() {
     return (
       <div>
-        <form onChange={() => {
-          this.props.updateForm({
-            fontSize: fontSize.value,
-            lineHeight: lineHeight.value,
-            paragraphWidth: paragraphWidth.value
-          });
-          console.log({
-            fontSize: fontSize.value,
-            lineHeight: lineHeight.value,
-            paragraphWidth: paragraphWidth.value
-          })
-        }
-        }>
+        <form>
           <input type="range"
+                 name="fontSize"
+                 onChange={this.handleInputChange}
                  min="12"
-                 max="24"
-                 ref={node => {
-                   fontSize = node
-                 }}/>
+                 max="24"/>
           <input type="range"
+                 name="lineHeight"
+                 onChange={this.handleInputChange}
                  min="90"
-                 max="180"
-                 ref={node => {
-                   lineHeight = node
-                 }}/>
+                 max="180"/>
           <input type="range"
+                 name="paragraphWidth"
+                 onChange={this.handleInputChange}
                  min="30"
-                 max="100"
-                 ref={node => {
-                   paragraphWidth = node
-                 }}/>
+                 max="100"/>
         </form>
       </div>
     )
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapStateToProps = (state) => {
   return {
-    updateForm: data => {
-      dispatch(updateFormData(data))
-    }
+    formData: state.bindForm
   }
 };
 
-export default connect(null, mapDispatchToProps)(TypoForm);
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+  updateFormData
+}, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(TypoForm);
